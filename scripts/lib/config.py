@@ -51,6 +51,10 @@ IGNORED_STEMS = {"readme", "license", "licence", "changelog"}
 COVER_WIDTH = 300           # preview width in px, height keeps the aspect ratio
 COVER_JPEG_QUALITY = 85
 
+# Renaming (``build_catalog.py --rename``): unreadable download names such as
+# ``pg1342-images-3.epub`` become ``<title>-<author>.<ext>``.
+RENAME_MAX_SLUG = 90        # hard cap for the generated file stem
+
 # --- field policy ----------------------------------------------------------
 # COMPUTED fields are recomputed on every run; every other field a human might
 # edit is *preserved* from the committed catalog (or from an override file).

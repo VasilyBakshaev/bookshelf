@@ -73,6 +73,22 @@ is still listed; you just fill in the metadata yourself.
 File names should stay ASCII (they end up in URLs). Display titles live in the
 JSON, so `pg84-images-3.epub` with the title "Frankenstein" is perfectly fine.
 
+### Unreadable file names
+
+Downloaded books often arrive as `pg1342-images-3.epub`. Pass `--rename` and the
+generator tidies them up to `<title>-<author>.<ext>` (moving the cover along):
+
+```bash
+python3 scripts/build_catalog.py --rename --dry-run   # preview only
+python3 scripts/build_catalog.py --rename             # apply, then rebuild
+```
+
+Only EPUB/FB2 are renamed (other formats carry no metadata to name them from),
+the operation is idempotent, name clashes are skipped with a message, and your
+hand-written `description`/`license` follow the file — entries are matched by
+`sha256` as well as by `id`. Note that renaming changes a book's `id`, so run it
+before shipping a catalog to an app that remembers reading positions.
+
 ## Editing descriptions (these are yours and are never overwritten)
 
 `catalog/books/*.json` is generated, **but the human-editable fields in it are

@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "language": "en",
-  "generatedAt": "2026-11-04T07:04:37Z",
+  "generatedAt": "2026-11-04T07:11:36Z",
   "books": [
     {
-      "id": "en/pg345-images-3",
+      "id": "en/dracula-bram-stoker",
       "title": "Dracula",
       "authors": [
         "Bram Stoker"
@@ -22,15 +22,15 @@
       ],
       "year": 1995,
       "format": "epub",
-      "cover": "covers/en/pg345-images-3.jpg",
-      "download": "en/pg345-images-3.epub",
+      "cover": "covers/en/dracula-bram-stoker.jpg",
+      "download": "en/dracula-bram-stoker.epub",
       "bytes": 602902,
       "sha256": "be5b12d762ceaacab5bfd0c1e510c8d36a0498cdde43790d6575d198fa9cd94d",
       "license": "public-domain",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "en/pg84-images-3",
+      "id": "en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley",
       "title": "Frankenstein; or, The modern Prometheus",
       "authors": [
         "Mary Wollstonecraft Shelley"
@@ -47,15 +47,15 @@
       ],
       "year": 1993,
       "format": "epub",
-      "cover": "covers/en/pg84-images-3.jpg",
-      "download": "en/pg84-images-3.epub",
+      "cover": "covers/en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley.jpg",
+      "download": "en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley.epub",
       "bytes": 440131,
       "sha256": "0bfcc8cacdc72e132272844ed465c6198f1049a8d2b9e3f16806d02beee452e3",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "en/pg1342-images-3",
+      "id": "en/pride-and-prejudice-jane-austen",
       "title": "Pride and Prejudice",
       "authors": [
         "Jane Austen"
@@ -72,15 +72,15 @@
       ],
       "year": 1998,
       "format": "epub",
-      "cover": "covers/en/pg1342-images-3.jpg",
-      "download": "en/pg1342-images-3.epub",
+      "cover": "covers/en/pride-and-prejudice-jane-austen.jpg",
+      "download": "en/pride-and-prejudice-jane-austen.epub",
       "bytes": 24864457,
       "sha256": "fd519471687295a8b2492d9e413bc24bee21ade9808d8af29899a16e8599064e",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "en/pg1661-images-3",
+      "id": "en/the-adventures-of-sherlock-holmes-arthur-conan-doyle",
       "title": "The Adventures of Sherlock Holmes",
       "authors": [
         "Arthur Conan Doyle"
@@ -93,15 +93,15 @@
       ],
       "year": 1999,
       "format": "epub",
-      "cover": "covers/en/pg1661-images-3.jpg",
-      "download": "en/pg1661-images-3.epub",
+      "cover": "covers/en/the-adventures-of-sherlock-holmes-arthur-conan-doyle.jpg",
+      "download": "en/the-adventures-of-sherlock-holmes-arthur-conan-doyle.epub",
       "bytes": 379503,
       "sha256": "310ddf29f2b98b870b0e970061d236c9ce7c65163e0e172c254a1db3d070d3f4",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "en/dr-jekyll-and-mr-hyde",
+      "id": "en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson",
       "title": "The Strange Case of Dr. Jekyll and Mr. Hyde",
       "authors": [
         "Robert Louis Stevenson"
@@ -118,8 +118,8 @@
       ],
       "year": 2008,
       "format": "epub",
-      "cover": "covers/en/dr-jekyll-and-mr-hyde.jpg",
-      "download": "en/Dr_Jekyll_and_Mr_Hyde.epub",
+      "cover": "covers/en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson.jpg",
+      "download": "en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson.epub",
       "bytes": 143955,
       "sha256": "89f826a8b0ca752bc88af8eb7a4cc5b4fd9163085e8f05b32e42a15c1165c626",
       "license": "unknown",

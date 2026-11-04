@@ -47,6 +47,16 @@ def humanize_slug(slug: str) -> str:
     return " ".join(word.capitalize() for word in re.split(r"[-_.]+", slug) if word)
 
 
+def truncate_slug(slug: str, max_len: int) -> str:
+    """Trim ``slug`` to ``max_len`` chars, cutting at a hyphen boundary."""
+    if len(slug) <= max_len:
+        return slug
+    cut = slug[:max_len]
+    if "-" in cut:
+        cut = cut.rsplit("-", 1)[0]
+    return cut.strip("-") or slug[:max_len]
+
+
 def sha256_file(path: Path) -> str:
     digest = hashlib.sha256()
     with open(path, "rb") as handle:

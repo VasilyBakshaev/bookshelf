@@ -11,6 +11,7 @@ Order of precedence for a field:  override > existing catalog > file metadata.
 Usage:
     python3 scripts/build_catalog.py            # (re)generate catalog/*.json
     python3 scripts/build_catalog.py --check    # verify without writing (CI)
+    python3 scripts/build_catalog.py --rename   # normalise book file names too
 """
 from __future__ import annotations
 
@@ -77,6 +78,70 @@ def computed_fields(root: Path, lang: str, slug: str, fmt: str, path: Path) -> d
     }
 
 
+def desired_stem(metadata: dict[str, Any], fallback: str) -> str:
+    """Readable file stem built from the title and the first author."""
+    parts = []
+    if metadata.get("title"):
+        parts.append(util.slugify(metadata["title"]))
+    authors = metadata.get("authors") or []
+    if authors:
+        parts.append(util.slugify(authors[0]))
+    slug = "-".join(part for part in parts if part)
+    return util.truncate_slug(slug or fallback, cfg.RENAME_MAX_SLUG)
+
+
+def plan_renames(root: Path) -> list[tuple[str, str, str, Path]]:
+    """List ``(language, old_slug, new_slug, path)`` for files worth renaming.
+
+    Only parseable formats are touched: without metadata there is nothing to
+    derive a readable name from. Collisions are skipped with a message.
+    """
+    candidates = []
+    for lang, slug, fmt, path in iter_books(root):
+        if fmt not in cfg.COVER_FORMATS:
+            continue
+        target = desired_stem(auto_metadata(path, fmt), slug)
+        if target and target != slug:
+            candidates.append((lang, slug, target, path))
+
+    moving_away = {path for _, _, _, path in candidates}
+    plan = []
+    taken: set[str] = set()
+    for lang, slug, target, path in candidates:
+        new_id = f"{lang}/{target}"
+        new_path = path.with_name(f"{target}{path.suffix}")
+        if new_id in taken:
+            print(f"  skip {lang}/{slug}: '{new_path.name}' is already taken")
+            continue
+        if new_path.exists() and new_path not in moving_away:
+            print(f"  skip {lang}/{slug}: '{new_path.name}' already exists")
+            continue
+        taken.add(new_id)
+        plan.append((lang, slug, target, path))
+    return plan
+
+
+def apply_renames(root: Path, dry_run: bool = False) -> int:
+    """Rename book files to their readable ``<title>-<author>.<ext>`` name.
+
+    The matching preview cover is moved along. Hand-written catalog fields are
+    not lost: after a rename ``build`` re-associates entries by ``sha256``.
+    """
+    plan = plan_renames(root)
+    for lang, old_slug, new_slug, old_path in plan:
+        new_path = old_path.with_name(f"{new_slug}{old_path.suffix}")
+        print(f"  {rel(root, old_path)} -> {rel(root, new_path)}")
+        if dry_run:
+            continue
+        old_path.rename(new_path)
+        old_cover = root / cfg.REL_COVERS_DIR / lang / f"{old_slug}.jpg"
+        new_cover = root / cfg.REL_COVERS_DIR / lang / f"{new_slug}.jpg"
+        if old_cover.exists() and not new_cover.exists():
+            new_cover.parent.mkdir(parents=True, exist_ok=True)
+            old_cover.rename(new_cover)
+    return len(plan)
+
+
 def merge_book(
     slug: str,
     auto: dict[str, Any],
@@ -114,6 +179,12 @@ def merge_book(
 def build(root: Path) -> dict[str, Any]:
     """Build the whole catalog in memory (index, languages and per-language shards)."""
     existing = load_existing(root)
+    # Index by content too: a renamed file keeps its sha256, so hand-written
+    # fields follow the file to its new id.
+    by_hash: dict[str, dict[str, Any]] = {}
+    for previous in existing.values():
+        if previous.get("sha256"):
+            by_hash.setdefault(previous["sha256"], previous)
     per_lang: dict[str, list[dict[str, Any]]] = {}
 
     seen: dict[str, Path] = {}
@@ -123,12 +194,14 @@ def build(root: Path) -> dict[str, Any]:
             raise ValueError(f"duplicate book id '{book_id}' ({seen[book_id]} and {path})")
         seen[book_id] = path
 
+        computed = computed_fields(root, lang, slug, fmt, path)
+        previous = existing.get(book_id) or by_hash.get(computed["sha256"], {})
         book = merge_book(
             slug,
             auto_metadata(path, fmt),
-            existing.get(book_id, {}),
+            previous,
             util.read_json(root / cfg.REL_OVERRIDES_DIR / lang / f"{slug}.json", {}) or {},
-            computed_fields(root, lang, slug, fmt, path),
+            computed,
         )
         per_lang.setdefault(lang, []).append(book)
 
@@ -324,9 +397,28 @@ def main(argv: list[str] | None = None) -> int:
                         help="verify the catalog without writing (for CI)")
     parser.add_argument("--strict", action="store_true",
                         help="with --check: also fail when an EPUB/FB2 has no extracted cover")
+    parser.add_argument("--rename", action="store_true",
+                        help="rename book files to <title>-<author>.<ext> before building")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="with --rename: only print the planned renames")
     args = parser.parse_args(argv)
 
+    if args.check and args.rename:
+        print("build_catalog: --check and --rename are mutually exclusive", file=sys.stderr)
+        return 2
+    if args.dry_run and not args.rename:
+        print("build_catalog: --dry-run requires --rename", file=sys.stderr)
+        return 2
+
     root = args.root.resolve()
+
+    if args.rename:
+        print("rename plan (dry run):" if args.dry_run else "renaming book files:")
+        renamed = apply_renames(root, dry_run=args.dry_run)
+        if args.dry_run:
+            return 0
+        print(f"  {renamed} file(s) renamed" if renamed else "  nothing to rename")
+
     try:
         built = build(root)
     except ValueError as exc:

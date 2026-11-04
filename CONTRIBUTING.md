@@ -24,6 +24,10 @@ edit by hand except the text fields described below.
    python3 scripts/build_catalog.py
    ```
 
+   If the download came with an unreadable name (`pg1342-images-3.epub`), add
+   `--rename` to normalise it to `<title>-<author>.<ext>`:
+   `python3 scripts/build_catalog.py --rename` (preview with `--dry-run`).
+
 3. Commit the book, its cover and the regenerated `catalog/` together.
 
 ## Write a description

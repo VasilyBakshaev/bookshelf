@@ -205,6 +205,43 @@ class PipelineTest(unittest.TestCase):
         make_epub(self.tmp / "en/A_B.epub", title="Second", author="Y", language="en")
         self.assertEqual(build_catalog.main(["--root", str(self.tmp)]), 2)
 
+    # ------------------------------------------------------------------
+    def test_14_rename_normalises_filenames(self) -> None:
+        make_epub(self.tmp / "en/ugly-055.epub", title="My Great Book",
+                  author="John Smith", language="en", cover=sample_cover())
+        extract_covers.main(["--root", str(self.tmp)])
+        self.build()
+
+        path = self.tmp / "catalog/books/en.json"
+        data = read_json(path)
+        next(b for b in data["books"] if b["id"] == "en/ugly-055")["description"] = "Kept."
+        write_json(path, data)
+
+        # --dry-run must not touch anything
+        self.assertEqual(
+            build_catalog.main(["--root", str(self.tmp), "--rename", "--dry-run"]), 0)
+        self.assertTrue((self.tmp / "en/ugly-055.epub").is_file())
+
+        self.assertEqual(build_catalog.main(["--root", str(self.tmp), "--rename"]), 0)
+
+        self.assertFalse((self.tmp / "en/ugly-055.epub").exists())
+        self.assertTrue((self.tmp / "en/my-great-book-john-smith.epub").is_file())
+        self.assertTrue((self.tmp / "covers/en/my-great-book-john-smith.jpg").is_file())
+        self.assertFalse((self.tmp / "covers/en/ugly-055.jpg").exists())
+
+        book = self.book("en", "en/my-great-book-john-smith")
+        self.assertEqual(book["description"], "Kept.")  # carried over by sha256
+        self.assertEqual(book["download"], "en/my-great-book-john-smith.epub")
+        self.assertEqual(book["cover"], "covers/en/my-great-book-john-smith.jpg")
+
+    def test_15_rename_is_idempotent_and_guarded(self) -> None:
+        self.assertEqual(build_catalog.main(["--root", str(self.tmp), "--rename"]), 0)
+        self.assertEqual(build_catalog.plan_renames(self.tmp), [])
+
+        # --check and --rename are mutually exclusive
+        self.assertEqual(
+            build_catalog.main(["--root", str(self.tmp), "--rename", "--check"]), 2)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

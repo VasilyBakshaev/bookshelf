@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "language": "fr",
-  "generatedAt": "2026-11-04T07:04:37Z",
+  "generatedAt": "2026-11-04T07:11:36Z",
   "books": [
     {
-      "id": "fr/pg32854-images-3",
+      "id": "fr/arsene-lupin-gentleman-cambrioleur-maurice-leblanc",
       "title": "Arsène Lupin, gentleman-cambrioleur",
       "authors": [
         "Maurice Leblanc"
@@ -19,15 +19,15 @@
       ],
       "year": 2010,
       "format": "epub",
-      "cover": "covers/fr/pg32854-images-3.jpg",
-      "download": "fr/pg32854-images-3.epub",
+      "cover": "covers/fr/arsene-lupin-gentleman-cambrioleur-maurice-leblanc.jpg",
+      "download": "fr/arsene-lupin-gentleman-cambrioleur-maurice-leblanc.epub",
       "bytes": 229420,
       "sha256": "3694f21175e323c374ac53365e1e46744b3700db5ef4c7753ea76265754ea57e",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "fr/pg4650-images-3",
+      "id": "fr/candide-ou-l-optimisme-voltaire",
       "title": "Candide, ou l'optimisme",
       "authors": [
         "Voltaire"
@@ -39,15 +39,15 @@
       ],
       "year": 2003,
       "format": "epub",
-      "cover": "covers/fr/pg4650-images-3.jpg",
-      "download": "fr/pg4650-images-3.epub",
+      "cover": "covers/fr/candide-ou-l-optimisme-voltaire.jpg",
+      "download": "fr/candide-ou-l-optimisme-voltaire.epub",
       "bytes": 195065,
       "sha256": "52f706dea0bad8e08913b254333901f3f6dfb1b472a90a8802b97b9604986d59",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "fr/pg62215-images-3",
+      "id": "fr/le-fantome-de-l-opera-gaston-leroux",
       "title": "Le Fantôme de l'Opéra",
       "authors": [
         "Gaston Leroux"
@@ -64,15 +64,15 @@
       ],
       "year": 2020,
       "format": "epub",
-      "cover": "covers/fr/pg62215-images-3.jpg",
-      "download": "fr/pg62215-images-3.epub",
+      "cover": "covers/fr/le-fantome-de-l-opera-gaston-leroux.jpg",
+      "download": "fr/le-fantome-de-l-opera-gaston-leroux.epub",
       "bytes": 447510,
       "sha256": "8c81cfbfc825a933a624f88a57445b3a85a6b7963932411a36c0f2bceac90813",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "fr/pg13951-images-3",
+      "id": "fr/les-trois-mousquetaires-alexandre-dumas",
       "title": "Les trois mousquetaires",
       "authors": [
         "Alexandre Dumas",
@@ -87,15 +87,15 @@
       ],
       "year": 2004,
       "format": "epub",
-      "cover": "covers/fr/pg13951-images-3.jpg",
-      "download": "fr/pg13951-images-3.epub",
+      "cover": "covers/fr/les-trois-mousquetaires-alexandre-dumas.jpg",
+      "download": "fr/les-trois-mousquetaires-alexandre-dumas.epub",
       "bytes": 793480,
       "sha256": "49c4f011d89ef849381ff340acd9962e6ea791f7c24d21f778585817c308d329",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "fr/pg14155-images-3",
+      "id": "fr/madame-bovary-gustave-flaubert",
       "title": "Madame Bovary",
       "authors": [
         "Gustave Flaubert"
@@ -112,15 +112,15 @@
       ],
       "year": 2004,
       "format": "epub",
-      "cover": "covers/fr/pg14155-images-3.jpg",
-      "download": "fr/pg14155-images-3.epub",
+      "cover": "covers/fr/madame-bovary-gustave-flaubert.jpg",
+      "download": "fr/madame-bovary-gustave-flaubert.epub",
       "bytes": 374776,
       "sha256": "8b6fd7be7ae83277bd5236bda8c30fd3147048980fd06ceaea6bcbb7b0d72920",
       "license": "unknown",
       "addedAt": "2026-11-04"
     },
     {
-      "id": "fr/pg4791-images-3",
+      "id": "fr/voyage-au-centre-de-la-terre-jules-verne",
       "title": "Voyage au Centre de la Terre",
       "authors": [
         "Jules Verne"
@@ -134,8 +134,8 @@
       ],
       "year": 2003,
       "format": "epub",
-      "cover": "covers/fr/pg4791-images-3.jpg",
-      "download": "fr/pg4791-images-3.epub",
+      "cover": "covers/fr/voyage-au-centre-de-la-terre-jules-verne.jpg",
+      "download": "fr/voyage-au-centre-de-la-terre-jules-verne.epub",
       "bytes": 260291,
       "sha256": "6b5c629fb22bb7258babc1de27f1316d5469c582839b102979f2fe0967e78059",
       "license": "unknown",
