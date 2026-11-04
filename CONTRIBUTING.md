@@ -31,7 +31,7 @@ edit by hand except the text fields described below.
 
 ## Write a description
 
-Add `source/overrides/<lang>/<slug>.json` next to the book:
+Add `overrides/<lang>/<slug>.json` next to the book:
 
 ```json
 {

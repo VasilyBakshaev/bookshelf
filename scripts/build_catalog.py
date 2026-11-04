@@ -332,7 +332,7 @@ def compare_with_disk(root: Path, built: dict[str, Any]) -> list[str]:
     return problems
 
 
-def verify_integrity(root: Path, built: dict[str, Any], require_covers: bool = False) -> list[str]:
+def verify_integrity(root: Path, built: dict[str, Any]) -> list[str]:
     """Ensure every catalog entry matches a real file and vice versa."""
     problems = []
     seen: set[str] = set()
@@ -350,8 +350,6 @@ def verify_integrity(root: Path, built: dict[str, Any], require_covers: bool = F
             cover = book.get("cover")
             if cover and not (root / cover).is_file():
                 problems.append(f"{book['id']}: missing cover {cover}")
-            elif not cover and require_covers and book["format"] in cfg.COVER_FORMATS:
-                problems.append(f"{book['id']}: no preview cover -- run extract_covers.py")
     for lang, _slug, _fmt, path in iter_books(root):
         rel_download = cfg.download_rel(lang, path.name)
         if rel_download not in seen:
@@ -397,8 +395,6 @@ def main(argv: list[str] | None = None) -> int:
                         help="repository root (default: auto-detected)")
     parser.add_argument("--check", action="store_true",
                         help="verify the catalog without writing (for CI)")
-    parser.add_argument("--strict", action="store_true",
-                        help="with --check: also fail when an EPUB/FB2 has no extracted cover")
     parser.add_argument("--rename", action="store_true",
                         help="rename book files to <title>-<author>.<ext> before building")
     parser.add_argument("--dry-run", action="store_true",
@@ -432,7 +428,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.check:
         problems = (validate_schema(root, built)
                     + compare_with_disk(root, built)
-                    + verify_integrity(root, built, require_covers=args.strict))
+                    + verify_integrity(root, built))
         if problems:
             print("catalog check FAILED:", file=sys.stderr)
             for problem in problems:

@@ -24,7 +24,7 @@ bookshelf/
 │   └── shards/
 │       ├── en.json              #   one shard per language
 │       └── fr.json
-├── source/overrides/            # hand-written per-book text (wins over everything)
+├── overrides/                   # hand-written text, one file per book
 │   └── en/dracula-bram-stoker.json
 ├── schema/catalog.schema.json   # JSON Schema contract
 ├── scripts/
@@ -39,24 +39,26 @@ bookshelf/
 Every sub-directory of `books/` is a language; the name is still checked against
 a BCP-47 shape so a typo such as `books/englsh/` is easy to spot.
 
-## Requirements
-
-* Python 3.9+
-* `pip install -r requirements.txt`  (Pillow for covers, jsonschema for `--check`)
-
-## Quick start
+## Setup (once)
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-
-python3 scripts/update.py            # covers + build — the everyday command
-python3 scripts/update.py --check    # ...and verify everything is in sync
-python3 scripts/update.py --rename   # ...also tidy unreadable file names
 ```
 
-`update.py` just runs the two steps in the right order — **covers have to exist
-before the build records a `cover` path** — and keeps the modules separate, so
-`build_catalog.py` and `--check` still run on plain Python without Pillow.
+`.venv/` is git-ignored. Only `extract_covers.py` needs Pillow — `build_catalog.py`
+and `--check` run on plain Python, and `jsonschema` is optional.
+
+## Everyday use
+
+```bash
+python3 scripts/update.py            # extract covers, then build catalog/*.json
+python3 scripts/update.py --check    # ...and verify everything is in sync
+```
+
+`update.py` runs the two steps in the right order — **covers have to exist before
+the build records a `cover` path** — keeping the concerns in separate modules.
 After adding or removing books run it once and commit `books/`, `covers/` and
 `catalog/` together.
 
@@ -70,12 +72,11 @@ After adding or removing books run it once and commit `books/`, `covers/` and
    ```
 3. Commit `books/`, `covers/` and `catalog/`.
 
-That's it. Title, authors, subjects and the cover are read straight from the
-EPUB/FB2 file. For formats we cannot parse (`txt`, `pdf`, `docx`, ...) the book
-is still listed; you just fill in the metadata yourself.
+Title, authors, subjects and the cover are read straight from the EPUB/FB2 file.
+For formats we cannot parse (`txt`, `pdf`, `docx`, ...) the book is still listed;
+you just fill in the metadata yourself.
 
-File names should stay ASCII (they end up in URLs). Display titles live in the
-JSON, so `pg84-images-3.epub` with the title "Frankenstein" is perfectly fine.
+Keep file names ASCII (they end up in URLs) — the display title lives in the JSON.
 
 ### Unreadable file names
 
@@ -87,40 +88,17 @@ python3 scripts/build_catalog.py --rename --dry-run   # preview only
 python3 scripts/update.py --rename                    # apply, then rebuild
 ```
 
-Only EPUB/FB2 are renamed (other formats carry no metadata to name them from),
-the operation is idempotent, name clashes are skipped with a message, and your
-hand-written `description`/`license` follow the file — entries are matched by
-`sha256` as well as by `id`. Note that renaming changes a book's `id`, so run it
+Only EPUB/FB2 are renamed, the operation is idempotent, clashes are skipped with
+a message, and your hand-written text follows the file (entries are matched by
+`sha256` as well as by `id`). Note that renaming changes a book's `id` — run it
 before shipping a catalog to an app that remembers reading positions.
 
-## Editing descriptions (these are yours and are never overwritten)
+## Descriptions
 
 `catalog/shards/*.json` is generated, **but the human-editable fields in it are
-preserved on every run**. Every book also gets a `"No description"` placeholder
-until you write something real, so a card never renders an empty blurb.
-
-Two equivalent places to write it:
-
-1. **In `source/overrides/`** (recommended, and what this repo does) — hand-
-   written JSON, one file per book, that wins over everything and survives even
-   deleting `catalog/` and rebuilding from scratch.
-2. **Directly in the generated shard** — open `catalog/shards/en.json`, write the
-   `description` (and `subjects`, `year`, `license`, `source`, ...), then re-run
-   the build as often as you like: your text stays, only `bytes`/`sha256`/paths
-   are refreshed.
-
-Precedence, per field: **override file > values already in the shard > values
-read from the book file**. A handful of fields are *derived* and always
-recomputed, so do not bother editing them:
-
-| Always recomputed | Preserved (yours) |
-| --- | --- |
-| `id`, `language`, `format`, `cover`, `download`, `bytes`, `sha256` | `title`, `authors`, `description`, `subjects`, `publisher`, `year`, `originalTitle`, `translator`, `license`, `source`, `addedAt` |
-
-### Overrides
-
-`source/overrides/<lang>/<slug>.json` mirrors `books/<lang>/<slug>.<ext>` — one
-small file per book. This repository already ships one for every book:
+preserved on every run**. Every book gets `"No description"` until you write one,
+and the tidy place to write it is `overrides/<lang>/<slug>.json` — one small file
+per book (this repo ships one for each of them):
 
 ```json
 {
@@ -131,8 +109,12 @@ small file per book. This repository already ships one for every book:
 }
 ```
 
-Keeping the prose out of the generated files means the shards can be rebuilt
-from scratch at any time without losing anything.
+You can also edit `description` directly inside a shard — it is preserved too.
+Precedence per field: **override > value already in the shard > value read from
+the book file**. Always recomputed, so don't bother: `id`, `language`, `format`,
+`cover`, `download`, `bytes`, `sha256`. Everything else is yours: `title`,
+`authors`, `description`, `subjects`, `publisher`, `year`, `originalTitle`,
+`translator`, `license`, `source`, `addedAt`.
 
 
 ## The JSON the app reads
@@ -140,29 +122,17 @@ from scratch at any time without losing anything.
 Start at `catalog/index.json`; it lists the shards. Load only the language the
 user picked — never the whole catalog.
 
-**`catalog/index.json`**
+**`catalog/index.json`** — the entry point: read it, then load one shard
 ```json
-{
-  "schemaVersion": 1,
-  "generatedAt": "2026-11-04T07:04:37Z",
-  "languagesIndex": "catalog/languages.json",
-  "shards": {
-    "en": "catalog/shards/en.json",
-    "fr": "catalog/shards/fr.json"
-  }
-}
+{ "schemaVersion": 1, "generatedAt": "…", "languagesIndex": "catalog/languages.json",
+  "shards": { "en": "catalog/shards/en.json", "fr": "catalog/shards/fr.json" } }
 ```
 
 **`catalog/languages.json`** — for the language picker
 ```json
-{
-  "schemaVersion": 1,
-  "generatedAt": "2026-11-04T07:04:37Z",
-  "languages": [
+{ "schemaVersion": 1, "generatedAt": "…", "languages": [
     { "code": "en", "name": "English", "nativeName": "English", "bookCount": 5 },
-    { "code": "fr", "name": "French", "nativeName": "Français", "bookCount": 6 }
-  ]
-}
+    { "code": "fr", "name": "French",  "nativeName": "Français", "bookCount": 6 } ] }
 ```
 
 **`catalog/shards/en.json`** — one shard per language
@@ -195,20 +165,16 @@ user picked — never the whole catalog.
 
 | field | why it is there |
 | --- | --- |
-| `id` | Stable unique key (`<language>/<slug>`) — reuse it as the library progress key so a book downloaded twice is recognised. |
+| `id` | Stable key (`<language>/<slug>`) — reuse it as the reading-progress key. |
 | `title`, `authors[]` | The listing. |
-| `language` | Same BCP-47 code as the `books/<code>/` folder and `languages.json`. |
-| `description` | Blurb on the card. Defaults to `No description`; write yours in `source/overrides/`. |
-| `subjects[]` | Grouping / search. |
-| `publisher`, `year` | Sorting and "old/новинки" filters. |
-| `originalTitle`, `translator` | Optional. |
-| `format` | `epub`/`fb2`/`txt`/... so the app knows before downloading and can hide formats it cannot open. |
-| `cover` | Relative path to the preview (300px JPEG). |
-| `download` | Relative path to the book file (`books/<lang>/<file>`). |
-| `bytes` | Download progress and "you are about to download 25 MB" warnings. |
-| `sha256` | Verify the file after download, before importing it. |
-| `license` | Legal hygiene — set it (`public-domain`, `cc0`, ...). |
-| `source` | Attribution / provenance (e.g. the Gutenberg URL). |
+| `language` | BCP-47 code, same as the `books/<code>/` folder. |
+| `description` | Card blurb (`No description` until you write one). |
+| `subjects[]`, `year` | Grouping, search, sorting. |
+| `format` | So the app can hide formats it cannot open. |
+| `cover`, `download` | Relative paths to the preview and the book file. |
+| `bytes` | Download progress; "this is 25 MB" warnings. |
+| `sha256` | Verify the file before importing it. |
+| `license`, `source` | Legal hygiene and provenance. |
 | `addedAt` | Set once, on first build. |
 
 Paths are **relative** — the app keeps one `baseUrl` constant and joins it, so
@@ -224,21 +190,15 @@ moving from `raw.githubusercontent.com` to jsDelivr is a one-line change.
 Do **not** read the catalog through `api.github.com` — that is rate-limited
 (60 req/h) and would need a token in the app.
 
-## Notes & limits
+## Notes
 
 * GitHub warns above **50 MB per file** and blocks above 100 MB. The
-  `*-images-3.epub` editions from Gutenberg include every illustration and can be
-  large (e.g. `books/en/pride-and-prejudice-jane-austen.epub` is ~25 MB) — prefer
-  the no-images EPUB when you do not need them. Big scans (PDF/DjVu) belong in
-  GitHub Releases.
-* `catalog/` is generated, but only the *derived* fields are rewritten, so both
-  `source/overrides/` and hand-edits inside a shard are safe.
-* `python3 scripts/update.py --check` (or `build_catalog.py --check`) is what CI
-  runs: schema + `sha256`/`bytes` + "is the catalog up to date". Add `--strict`
-  to also fail when an EPUB/FB2 has no extracted cover.
+  `*-images-3.epub` editions include every illustration (ours is ~25 MB) — the
+  no-images EPUB is smaller. Big scans (PDF/DjVu) belong in GitHub Releases.
 * `year` comes from the EPUB's `dc:date`, which for Gutenberg is the *ebook*
-  release date — that is why every book here sets the real publication year in
-  its override.
+  release date; the real publication year is set per book in `overrides/`.
+* CI (`.github/workflows/validate.yml`) runs `build_catalog.py --check` and the
+  tests on every push: schema + `sha256`/`bytes` + "is the catalog up to date".
 
 ## License
 

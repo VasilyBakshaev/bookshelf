@@ -118,7 +118,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(after["format"], "epub")  # derived fields still refreshed
 
     def test_05_overrides_take_precedence(self) -> None:
-        overrides = self.tmp / "source/overrides/en"
+        overrides = self.tmp / "overrides/en"
         overrides.mkdir(parents=True)
         write_json(overrides / "moby-dick.json", {"description": "From override.", "license": "cc0"})
         self.build()
@@ -175,15 +175,6 @@ class PipelineTest(unittest.TestCase):
         (self.tmp / "books/en/extra.txt").write_text("plain text", encoding="utf-8")
         # files/ changed but the catalog was not regenerated
         self.assertEqual(build_catalog.main(["--root", str(self.tmp), "--check"]), 1)
-
-    def test_10_strict_requires_covers(self) -> None:
-        self.build()
-        extract_covers.main(["--root", str(self.tmp)])
-        self.build()
-        self.assertEqual(build_catalog.main(["--root", str(self.tmp), "--check"]), 0)
-        # no-cover.epub has no embedded image, so --strict keeps failing
-        self.assertEqual(
-            build_catalog.main(["--root", str(self.tmp), "--check", "--strict"]), 1)
 
     def test_11_schema_validation_is_clean(self) -> None:
         extract_covers.main(["--root", str(self.tmp)])
@@ -250,7 +241,7 @@ class PipelineTest(unittest.TestCase):
         self.assertEqual(book["description"], "No description")
 
         # an override replaces the placeholder and survives a rebuild
-        overrides = self.tmp / "source/overrides/en"
+        overrides = self.tmp / "overrides/en"
         overrides.mkdir(parents=True)
         write_json(overrides / "no-desc.json", {"description": "A real blurb."})
         self.build()

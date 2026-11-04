@@ -19,8 +19,7 @@ jobs:
 
       - name: Verify the catalog is up to date
         # Checks the JSON Schema, every sha256/byte count and that catalog/
-        # matches the books on disk. Add --strict to also require a preview
-        # cover for every EPUB/FB2.
+        # matches the books on disk.
         run: python scripts/build_catalog.py --check
 
       - name: Run tests

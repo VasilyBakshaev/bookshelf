@@ -25,7 +25,7 @@ LANGUAGE_DIR_PATTERN = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$")
 REL_COVERS_DIR = "covers"
 REL_CATALOG_DIR = "catalog"
 REL_SHARDS_DIR = f"{REL_CATALOG_DIR}/shards"
-REL_OVERRIDES_DIR = "source/overrides"
+REL_OVERRIDES_DIR = "overrides"
 
 INDEX_NAME = "index.json"
 LANGUAGES_NAME = "languages.json"
