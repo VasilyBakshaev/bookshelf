@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "language": "en",
+  "generatedAt": "2026-11-04T07:04:37Z",
+  "books": [
+    {
+      "id": "en/pg345-images-3",
+      "title": "Dracula",
+      "authors": [
+        "Bram Stoker"
+      ],
+      "language": "en",
+      "description": "Граф Дракула перебирается в Англию, а охотники на вампиров пытаются его остановить.",
+      "subjects": [
+        "Horror tales",
+        "Epistolary fiction",
+        "Gothic fiction",
+        "Vampires -- Fiction",
+        "Dracula, Count (Fictitious character) -- Fiction",
+        "Transylvania (Romania) -- Fiction",
+        "Whitby (England) -- Fiction"
+      ],
+      "year": 1995,
+      "format": "epub",
+      "cover": "covers/en/pg345-images-3.jpg",
+      "download": "en/pg345-images-3.epub",
+      "bytes": 602902,
+      "sha256": "be5b12d762ceaacab5bfd0c1e510c8d36a0498cdde43790d6575d198fa9cd94d",
+      "license": "public-domain",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "en/pg84-images-3",
+      "title": "Frankenstein; or, The modern Prometheus",
+      "authors": [
+        "Mary Wollstonecraft Shelley"
+      ],
+      "language": "en",
+      "subjects": [
+        "Science fiction",
+        "Horror tales",
+        "Gothic fiction",
+        "Scientists -- Fiction",
+        "Monsters -- Fiction",
+        "Frankenstein, Victor (Fictitious character) -- Fiction",
+        "Frankenstein's monster (Fictitious character) -- Fiction"
+      ],
+      "year": 1993,
+      "format": "epub",
+      "cover": "covers/en/pg84-images-3.jpg",
+      "download": "en/pg84-images-3.epub",
+      "bytes": 440131,
+      "sha256": "0bfcc8cacdc72e132272844ed465c6198f1049a8d2b9e3f16806d02beee452e3",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "en/pg1342-images-3",
+      "title": "Pride and Prejudice",
+      "authors": [
+        "Jane Austen"
+      ],
+      "language": "en",
+      "subjects": [
+        "England -- Fiction",
+        "Young women -- Fiction",
+        "Love stories",
+        "Sisters -- Fiction",
+        "Domestic fiction",
+        "Courtship -- Fiction",
+        "Social classes -- Fiction"
+      ],
+      "year": 1998,
+      "format": "epub",
+      "cover": "covers/en/pg1342-images-3.jpg",
+      "download": "en/pg1342-images-3.epub",
+      "bytes": 24864457,
+      "sha256": "fd519471687295a8b2492d9e413bc24bee21ade9808d8af29899a16e8599064e",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "en/pg1661-images-3",
+      "title": "The Adventures of Sherlock Holmes",
+      "authors": [
+        "Arthur Conan Doyle"
+      ],
+      "language": "en",
+      "subjects": [
+        "Holmes, Sherlock (Fictitious character) -- Fiction",
+        "Private investigators -- England -- Fiction",
+        "Detective and mystery stories, English"
+      ],
+      "year": 1999,
+      "format": "epub",
+      "cover": "covers/en/pg1661-images-3.jpg",
+      "download": "en/pg1661-images-3.epub",
+      "bytes": 379503,
+      "sha256": "310ddf29f2b98b870b0e970061d236c9ce7c65163e0e172c254a1db3d070d3f4",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "en/dr-jekyll-and-mr-hyde",
+      "title": "The Strange Case of Dr. Jekyll and Mr. Hyde",
+      "authors": [
+        "Robert Louis Stevenson"
+      ],
+      "language": "en",
+      "subjects": [
+        "Science fiction",
+        "Horror tales",
+        "London (England) -- Fiction",
+        "Physicians -- Fiction",
+        "Psychological fiction",
+        "Self-experimentation in medicine -- Fiction",
+        "Multiple personality -- Fiction"
+      ],
+      "year": 2008,
+      "format": "epub",
+      "cover": "covers/en/dr-jekyll-and-mr-hyde.jpg",
+      "download": "en/Dr_Jekyll_and_Mr_Hyde.epub",
+      "bytes": 143955,
+      "sha256": "89f826a8b0ca752bc88af8eb7a4cc5b4fd9163085e8f05b32e42a15c1165c626",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    }
+  ]
+}

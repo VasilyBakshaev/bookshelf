@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "language": "fr",
+  "generatedAt": "2026-11-04T07:04:37Z",
+  "books": [
+    {
+      "id": "fr/pg32854-images-3",
+      "title": "Arsène Lupin, gentleman-cambrioleur",
+      "authors": [
+        "Maurice Leblanc"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Short stories",
+        "Burglars -- Fiction",
+        "Lupin, Arsène (Fictitious character) -- Fiction",
+        "Mystery and detective stories",
+        "Adventure stories, French"
+      ],
+      "year": 2010,
+      "format": "epub",
+      "cover": "covers/fr/pg32854-images-3.jpg",
+      "download": "fr/pg32854-images-3.epub",
+      "bytes": 229420,
+      "sha256": "3694f21175e323c374ac53365e1e46744b3700db5ef4c7753ea76265754ea57e",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "fr/pg4650-images-3",
+      "title": "Candide, ou l'optimisme",
+      "authors": [
+        "Voltaire"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Satire",
+        "Optimism -- Fiction"
+      ],
+      "year": 2003,
+      "format": "epub",
+      "cover": "covers/fr/pg4650-images-3.jpg",
+      "download": "fr/pg4650-images-3.epub",
+      "bytes": 195065,
+      "sha256": "52f706dea0bad8e08913b254333901f3f6dfb1b472a90a8802b97b9604986d59",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "fr/pg62215-images-3",
+      "title": "Le Fantôme de l'Opéra",
+      "authors": [
+        "Gaston Leroux"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Horror tales",
+        "Musical fiction",
+        "Opera -- Fiction",
+        "Paris (France) -- Fiction",
+        "Composers -- Fiction",
+        "Phantom of the Opera (Fictitious character) -- Fiction",
+        "French fiction -- 20th century"
+      ],
+      "year": 2020,
+      "format": "epub",
+      "cover": "covers/fr/pg62215-images-3.jpg",
+      "download": "fr/pg62215-images-3.epub",
+      "bytes": 447510,
+      "sha256": "8c81cfbfc825a933a624f88a57445b3a85a6b7963932411a36c0f2bceac90813",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "fr/pg13951-images-3",
+      "title": "Les trois mousquetaires",
+      "authors": [
+        "Alexandre Dumas",
+        "Auguste Maquet"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Historical fiction",
+        "France -- History -- Louis XIII, 1610-1643 -- Fiction",
+        "Adventure and adventurers -- Fiction",
+        "Swordsmen -- Fiction"
+      ],
+      "year": 2004,
+      "format": "epub",
+      "cover": "covers/fr/pg13951-images-3.jpg",
+      "download": "fr/pg13951-images-3.epub",
+      "bytes": 793480,
+      "sha256": "49c4f011d89ef849381ff340acd9962e6ea791f7c24d21f778585817c308d329",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "fr/pg14155-images-3",
+      "title": "Madame Bovary",
+      "authors": [
+        "Gustave Flaubert"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Adultery -- Fiction",
+        "Domestic fiction",
+        "Married women -- Fiction",
+        "France -- Fiction",
+        "Middle class -- Fiction",
+        "Physicians' spouses -- Fiction",
+        "Suicide victims -- Fiction"
+      ],
+      "year": 2004,
+      "format": "epub",
+      "cover": "covers/fr/pg14155-images-3.jpg",
+      "download": "fr/pg14155-images-3.epub",
+      "bytes": 374776,
+      "sha256": "8b6fd7be7ae83277bd5236bda8c30fd3147048980fd06ceaea6bcbb7b0d72920",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    },
+    {
+      "id": "fr/pg4791-images-3",
+      "title": "Voyage au Centre de la Terre",
+      "authors": [
+        "Jules Verne"
+      ],
+      "language": "fr",
+      "subjects": [
+        "Science fiction",
+        "Adventure stories",
+        "Earth (Planet) -- Core -- Fiction",
+        "Voyages, Imaginary -- Fiction"
+      ],
+      "year": 2003,
+      "format": "epub",
+      "cover": "covers/fr/pg4791-images-3.jpg",
+      "download": "fr/pg4791-images-3.epub",
+      "bytes": 260291,
+      "sha256": "6b5c629fb22bb7258babc1de27f1316d5469c582839b102979f2fe0967e78059",
+      "license": "unknown",
+      "addedAt": "2026-11-04"
+    }
+  ]
+}

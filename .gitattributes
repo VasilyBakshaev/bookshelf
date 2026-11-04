@@ -1,0 +1,23 @@
+# Normalize line endings for text files...
+* text=auto eol=lf
+
+# ...but never touch binaries: git must not try to diff/merge book files.
+*.epub  binary
+*.fb2   binary
+*.mobi  binary
+*.azw3  binary
+*.pdf   binary
+*.djvu  binary
+*.cbz   binary
+*.cbr   binary
+*.docx  binary
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.gif   binary
+*.webp  binary
+*.bmp   binary
+
+*.json  text eol=lf
+*.py    text eol=lf
+*.md    text eol=lf

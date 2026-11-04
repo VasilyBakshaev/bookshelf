@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-04T07:04:37Z",
+  "languagesIndex": "catalog/languages.json",
+  "shards": {
+    "en": "catalog/books/en.json",
+    "fr": "catalog/books/fr.json"
+  }
+}

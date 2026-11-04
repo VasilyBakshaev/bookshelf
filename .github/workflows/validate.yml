@@ -1,0 +1,27 @@
+name: validate-catalog
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Verify the catalog is up to date
+        # Checks the JSON Schema, every sha256/byte count and that catalog/
+        # matches the books on disk. Add --strict to also require a preview
+        # cover for every EPUB/FB2.
+        run: python scripts/build_catalog.py --check
+
+      - name: Run tests
+        run: python tests/test_pipeline.py

@@ -1,0 +1,5 @@
+# Runtime + tooling dependencies for the scripts in scripts/.
+#   Pillow      -- resize extracted covers into JPEG previews
+#   jsonschema  -- used by `build_catalog.py --check` to validate catalog/*.json
+Pillow>=10
+jsonschema>=4
