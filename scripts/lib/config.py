@@ -14,20 +14,17 @@ SCRIPT_DIR = Path(__file__).resolve().parent   # scripts/lib
 SCRIPTS_DIR = SCRIPT_DIR.parent                # scripts
 REPO_ROOT = SCRIPTS_DIR.parent                 # repo root
 
-# Books live directly in the repository root, one folder per language:
-#     <root>/en/<slug>.epub
-#     <root>/fr/<slug>.epub
-# A language folder is any top-level directory whose name looks like a BCP-47
-# code (en, fr, pt-BR, zh-Hans, ...). Everything else (scripts, schema, tests,
-# catalog, covers, ...) is skipped automatically.
+# Books live under books/, one folder per language:
+#     books/en/<slug>.epub
+#     books/fr/<slug>.epub
+# Every sub-directory of books/ is a language; the name is still checked
+# against a BCP-47 shape so a typo such as books/englsh/ is easy to spot.
+REL_BOOKS_DIR = "books"
 LANGUAGE_DIR_PATTERN = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*$")
-RESERVED_ROOT_DIRS = frozenset(
-    {"bin", "cfg", "dat", "dev", "doc", "docs", "env", "lib", "log", "out",
-     "res", "run", "src", "tmp", "var", "www", "api", "app"}
-)
 
 REL_COVERS_DIR = "covers"
 REL_CATALOG_DIR = "catalog"
+REL_SHARDS_DIR = f"{REL_CATALOG_DIR}/shards"
 REL_OVERRIDES_DIR = "source/overrides"
 
 INDEX_NAME = "index.json"
@@ -71,6 +68,7 @@ BOOK_FIELD_ORDER = (
 )
 
 DEFAULT_LICENSE = "unknown"
+DEFAULT_DESCRIPTION = "No description"
 DEFAULT_AUTHOR = "Unknown"
 
 LANGUAGES_INDEX_REL = f"{REL_CATALOG_DIR}/{LANGUAGES_NAME}"
@@ -144,9 +142,9 @@ def language_name(code: str) -> tuple[str, str]:
 
 def is_language_dir(name: str) -> bool:
     """True if ``name`` looks like a language folder (en, fr, pt-BR, ...)."""
-    return name not in RESERVED_ROOT_DIRS and bool(LANGUAGE_DIR_PATTERN.match(name))
+    return bool(LANGUAGE_DIR_PATTERN.match(name))
 
 
 def download_rel(language: str, filename: str) -> str:
     """Relative path of a book file, as stored in the JSON catalog."""
-    return f"{language}/{filename}"
+    return f"{REL_BOOKS_DIR}/{language}/{filename}"

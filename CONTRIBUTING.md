@@ -8,7 +8,7 @@ edit by hand except the text fields described below.
 1. Put the file in the language folder for its language:
 
    ```
-   en/<slug>.epub      fr/<slug>.epub      de/<slug>.fb2      ...
+   books/en/<slug>.epub   books/fr/<slug>.epub   books/de/<slug>.fb2   ...
    ```
 
    * the folder name is a BCP-47 code (`en`, `fr`, `pt-BR`, `zh-Hans`, ...);
@@ -16,37 +16,43 @@ edit by hand except the text fields described below.
      (it becomes a URL); a nicer display title goes in the JSON;
    * only add books that are public domain / freely redistributable.
 
-2. Regenerate the derived data:
+2. Refresh the derived data with one command:
 
    ```bash
    pip install -r requirements.txt
-   python3 scripts/extract_covers.py
-   python3 scripts/build_catalog.py
+   python3 scripts/update.py            # covers, then the JSON
    ```
 
-   If the download came with an unreadable name (`pg1342-images-3.epub`), add
-   `--rename` to normalise it to `<title>-<author>.<ext>`:
-   `python3 scripts/build_catalog.py --rename` (preview with `--dry-run`).
+   Add `--rename` if the download came with an unreadable name
+   (`pg1342-images-3.epub`): it normalises files to `<title>-<author>.<ext>`
+   (preview with `--dry-run`).
 
 3. Commit the book, its cover and the regenerated `catalog/` together.
 
 ## Write a description
 
-Open `catalog/books/<lang>.json` and fill in `description` (and optionally
-`subjects`, `year`, `license`, `source`). You can also set `license` — Gutenberg
-books are normally `public-domain`.
+Add `source/overrides/<lang>/<slug>.json` next to the book:
 
-These fields are **preserved** when `build_catalog.py` runs again, so it is safe
-to keep editing them. See the README for the full field list.
+```json
+{
+  "description": "…one or two sentences, in the language of the book…",
+  "year": 1897,
+  "license": "public-domain",
+  "source": "https://www.gutenberg.org/ebooks/345"
+}
+```
 
-If you prefer to keep your text outside the generated file, drop it in
-`source/overrides/<lang>/<slug>.json` instead.
+That file wins over everything and survives deleting `catalog/` and rebuilding.
+You can also just edit `description` inside `catalog/shards/<lang>.json` — those
+fields are **preserved** on every run — but overrides keep the prose out of the
+generated files. With neither, the description stays the `No description`
+placeholder. See the README for the full field list.
 
 ## Before you push
 
 ```bash
-python3 scripts/build_catalog.py --check   # must print "catalog check OK"
-python3 tests/test_pipeline.py             # must print "OK"
+python3 scripts/update.py --check   # must print "catalog check OK"
+python3 tests/test_pipeline.py      # must print "OK"
 ```
 
 CI runs exactly these two commands.

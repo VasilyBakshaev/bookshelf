@@ -26,7 +26,7 @@ from lib import util  # noqa: E402
 from lib.ebook import read_ebook  # noqa: E402
 from lib.scan import iter_books  # noqa: E402
 
-BOOKS_DIR_REL = f"{cfg.REL_CATALOG_DIR}/books"
+BOOKS_DIR_REL = cfg.REL_SHARDS_DIR
 
 
 def load_existing(root: Path) -> dict[str, dict[str, Any]]:
@@ -169,6 +169,8 @@ def merge_book(
         merged["authors"] = [cfg.DEFAULT_AUTHOR]
     if not merged.get("license"):
         merged["license"] = cfg.DEFAULT_LICENSE
+    if not merged.get("description"):
+        merged["description"] = cfg.DEFAULT_DESCRIPTION
     if not merged.get("addedAt"):
         merged["addedAt"] = util.today()
 

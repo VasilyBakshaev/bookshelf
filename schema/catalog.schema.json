@@ -1,11 +1,11 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Bookshelf catalog",
-  "description": "Contract for catalog/index.json, catalog/languages.json and catalog/books/<lang>.json",
+  "description": "Contract for catalog/index.json, catalog/languages.json and catalog/shards/<lang>.json",
   "definitions": {
     "book": {
       "type": "object",
-      "required": ["id", "title", "authors", "language", "format", "download", "bytes", "sha256", "license"],
+      "required": ["id", "title", "authors", "language", "description", "format", "download", "bytes", "sha256", "license"],
       "additionalProperties": false,
       "properties": {
         "id": {
@@ -44,8 +44,8 @@
         },
         "download": {
           "type": "string",
-          "description": "Relative path to the book file: <language>/<file>",
-          "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{1,8})*/[^/]+$"
+          "description": "Relative path to the book file: books/<language>/<file>",
+          "pattern": "^books/[a-z]{2,3}(-[A-Za-z0-9]{1,8})*/[^/]+$"
         },
         "bytes": { "type": "integer", "minimum": 0 },
         "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },

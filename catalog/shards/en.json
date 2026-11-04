@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "language": "en",
-  "generatedAt": "2026-11-04T07:11:36Z",
+  "generatedAt": "2026-11-04T07:36:05Z",
   "books": [
     {
       "id": "en/dracula-bram-stoker",
@@ -10,7 +10,7 @@
         "Bram Stoker"
       ],
       "language": "en",
-      "description": "Граф Дракула перебирается в Англию, а охотники на вампиров пытаются его остановить.",
+      "description": "A young solicitor's visit to a Transylvanian castle drags him, and everyone he loves, into the hunt for the undead Count Dracula.",
       "subjects": [
         "Horror tales",
         "Epistolary fiction",
@@ -20,13 +20,14 @@
         "Transylvania (Romania) -- Fiction",
         "Whitby (England) -- Fiction"
       ],
-      "year": 1995,
+      "year": 1897,
       "format": "epub",
       "cover": "covers/en/dracula-bram-stoker.jpg",
-      "download": "en/dracula-bram-stoker.epub",
+      "download": "books/en/dracula-bram-stoker.epub",
       "bytes": 602902,
       "sha256": "be5b12d762ceaacab5bfd0c1e510c8d36a0498cdde43790d6575d198fa9cd94d",
       "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/345",
       "addedAt": "2026-11-04"
     },
     {
@@ -36,6 +37,7 @@
         "Mary Wollstonecraft Shelley"
       ],
       "language": "en",
+      "description": "Victor Frankenstein animates a creature from dead flesh, then abandons it; the lonely, brilliant monster turns on its maker.",
       "subjects": [
         "Science fiction",
         "Horror tales",
@@ -45,13 +47,14 @@
         "Frankenstein, Victor (Fictitious character) -- Fiction",
         "Frankenstein's monster (Fictitious character) -- Fiction"
       ],
-      "year": 1993,
+      "year": 1818,
       "format": "epub",
       "cover": "covers/en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley.jpg",
-      "download": "en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley.epub",
+      "download": "books/en/frankenstein-or-the-modern-prometheus-mary-wollstonecraft-shelley.epub",
       "bytes": 440131,
       "sha256": "0bfcc8cacdc72e132272844ed465c6198f1049a8d2b9e3f16806d02beee452e3",
-      "license": "unknown",
+      "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/84",
       "addedAt": "2026-11-04"
     },
     {
@@ -61,6 +64,7 @@
         "Jane Austen"
       ],
       "language": "en",
+      "description": "Elizabeth Bennet must get past pride, prejudice and five marriageable sisters to find a match she can actually respect.",
       "subjects": [
         "England -- Fiction",
         "Young women -- Fiction",
@@ -70,13 +74,14 @@
         "Courtship -- Fiction",
         "Social classes -- Fiction"
       ],
-      "year": 1998,
+      "year": 1813,
       "format": "epub",
       "cover": "covers/en/pride-and-prejudice-jane-austen.jpg",
-      "download": "en/pride-and-prejudice-jane-austen.epub",
+      "download": "books/en/pride-and-prejudice-jane-austen.epub",
       "bytes": 24864457,
       "sha256": "fd519471687295a8b2492d9e413bc24bee21ade9808d8af29899a16e8599064e",
-      "license": "unknown",
+      "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/1342",
       "addedAt": "2026-11-04"
     },
     {
@@ -86,18 +91,20 @@
         "Arthur Conan Doyle"
       ],
       "language": "en",
+      "description": "Twelve early Sherlock Holmes cases, from A Scandal in Bohemia to The Adventure of the Copper Beeches.",
       "subjects": [
         "Holmes, Sherlock (Fictitious character) -- Fiction",
         "Private investigators -- England -- Fiction",
         "Detective and mystery stories, English"
       ],
-      "year": 1999,
+      "year": 1892,
       "format": "epub",
       "cover": "covers/en/the-adventures-of-sherlock-holmes-arthur-conan-doyle.jpg",
-      "download": "en/the-adventures-of-sherlock-holmes-arthur-conan-doyle.epub",
+      "download": "books/en/the-adventures-of-sherlock-holmes-arthur-conan-doyle.epub",
       "bytes": 379503,
       "sha256": "310ddf29f2b98b870b0e970061d236c9ce7c65163e0e172c254a1db3d070d3f4",
-      "license": "unknown",
+      "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/1661",
       "addedAt": "2026-11-04"
     },
     {
@@ -107,6 +114,7 @@
         "Robert Louis Stevenson"
       ],
       "language": "en",
+      "description": "A respectable doctor's experiments split him into a kindly gentleman and a murderous brute, and London cannot hold them both.",
       "subjects": [
         "Science fiction",
         "Horror tales",
@@ -116,13 +124,14 @@
         "Self-experimentation in medicine -- Fiction",
         "Multiple personality -- Fiction"
       ],
-      "year": 2008,
+      "year": 1886,
       "format": "epub",
       "cover": "covers/en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson.jpg",
-      "download": "en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson.epub",
+      "download": "books/en/the-strange-case-of-dr-jekyll-and-mr-hyde-robert-louis-stevenson.epub",
       "bytes": 143955,
       "sha256": "89f826a8b0ca752bc88af8eb7a4cc5b4fd9163085e8f05b32e42a15c1165c626",
-      "license": "unknown",
+      "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/43",
       "addedAt": "2026-11-04"
     }
   ]

@@ -1,7 +1,7 @@
 # bookshelf
 
 A dead-simple way to host a free e-book catalog on GitHub and serve it to a
-reader app: **books live in per-language folders, a script turns them into
+reader app: **books live in `books/<language>/`, a script turns them into
 JSON, another script pulls the covers out.**
 
 No backend, no database, no API keys. Commit the books + the generated JSON,
@@ -9,33 +9,35 @@ then let the app download `raw.githubusercontent.com` / jsDelivr.
 
 ```
 bookshelf/
-├── en/                          # one folder per language (BCP-47 code)
-│   ├── pg84-images-3.epub       #   the book files live here (as-is)
-│   └── Dr_Jekyll_and_Mr_Hyde.epub
-├── fr/
-│   └── pg4650-images-3.epub
+├── books/                       # the library — one folder per language
+│   ├── en/                      #   (BCP-47 code: en, fr, pt-BR, zh-Hans, ...)
+│   │   ├── dracula-bram-stoker.epub
+│   │   └── …
+│   └── fr/
+│       └── …
 ├── covers/                      # GENERATED: 300px JPEG previews
-│   ├── en/pg84-images-3.jpg
-│   └── fr/pg4650-images-3.jpg
+│   ├── en/dracula-bram-stoker.jpg
+│   └── fr/…
 ├── catalog/                     # GENERATED: the JSON the app consumes
 │   ├── index.json               #   entry point: schema version + shards
 │   ├── languages.json           #   language list for the picker
-│   └── books/
+│   └── shards/
 │       ├── en.json              #   one shard per language
 │       └── fr.json
-├── source/overrides/            # OPTIONAL per-book overrides (see below)
+├── source/overrides/            # hand-written per-book text (wins over everything)
+│   └── en/dracula-bram-stoker.json
 ├── schema/catalog.schema.json   # JSON Schema contract
 ├── scripts/
-│   ├── build_catalog.py         # files/ + overrides -> catalog/*.json
+│   ├── update.py                # one command: [rename] -> covers -> build [-> check]
+│   ├── build_catalog.py         # books/ + overrides -> catalog/*.json
 │   ├── extract_covers.py        # embedded cover -> covers/<lang>/<slug>.jpg
 │   └── lib/                     # shared code (EPUB/FB2 parsing, helpers)
 ├── tests/test_pipeline.py       # end-to-end tests
 └── .github/workflows/validate.yml
 ```
 
-A **language folder** is any top-level directory whose name looks like a
-BCP-47 code (`en`, `fr`, `pt-BR`, `zh-Hans`, ...). Everything else
-(`scripts/`, `catalog/`, `schema/`, ...) is ignored automatically.
+Every sub-directory of `books/` is a language; the name is still checked against
+a BCP-47 shape so a typo such as `books/englsh/` is easy to spot.
 
 ## Requirements
 
@@ -47,24 +49,26 @@ BCP-47 code (`en`, `fr`, `pt-BR`, `zh-Hans`, ...). Everything else
 ```bash
 pip install -r requirements.txt
 
-python3 scripts/extract_covers.py    # 1. pull the covers out of the books
-python3 scripts/build_catalog.py     # 2. (re)generate catalog/*.json
-python3 scripts/build_catalog.py --check   # 3. verify everything is in sync
+python3 scripts/update.py            # covers + build — the everyday command
+python3 scripts/update.py --check    # ...and verify everything is in sync
+python3 scripts/update.py --rename   # ...also tidy unreadable file names
 ```
 
-Run step 1 and 2 again after adding or removing any book, then commit
-`en/`, `fr/`, `covers/` and `catalog/` together.
+`update.py` just runs the two steps in the right order — **covers have to exist
+before the build records a `cover` path** — and keeps the modules separate, so
+`build_catalog.py` and `--check` still run on plain Python without Pillow.
+After adding or removing books run it once and commit `books/`, `covers/` and
+`catalog/` together.
 
 ## Adding a book
 
 1. Drop the file into the matching language folder:
-   `en/my-new-book.epub`
-2. Run the two scripts:
+   `books/en/my-new-book.epub`
+2. Refresh the derived data:
    ```bash
-   python3 scripts/extract_covers.py
-   python3 scripts/build_catalog.py
+   python3 scripts/update.py            # add --rename if the name is unreadable
    ```
-3. Commit `en/`, `covers/` and `catalog/`.
+3. Commit `books/`, `covers/` and `catalog/`.
 
 That's it. Title, authors, subjects and the cover are read straight from the
 EPUB/FB2 file. For formats we cannot parse (`txt`, `pdf`, `docx`, ...) the book
@@ -80,7 +84,7 @@ generator tidies them up to `<title>-<author>.<ext>` (moving the cover along):
 
 ```bash
 python3 scripts/build_catalog.py --rename --dry-run   # preview only
-python3 scripts/build_catalog.py --rename             # apply, then rebuild
+python3 scripts/update.py --rename                    # apply, then rebuild
 ```
 
 Only EPUB/FB2 are renamed (other formats carry no metadata to name them from),
@@ -91,48 +95,45 @@ before shipping a catalog to an app that remembers reading positions.
 
 ## Editing descriptions (these are yours and are never overwritten)
 
-`catalog/books/*.json` is generated, **but the human-editable fields in it are
-preserved on every run**. Gutenberg EPUBs (and most sources) ship without a
-`description`, so the usual workflow is:
+`catalog/shards/*.json` is generated, **but the human-editable fields in it are
+preserved on every run**. Every book also gets a `"No description"` placeholder
+until you write something real, so a card never renders an empty blurb.
 
-1. Run the scripts once.
-2. Open `catalog/books/en.json` and write the `description` (and `subjects`,
-   `year`, `license`, `source`, ...).
-3. Run `python3 scripts/build_catalog.py` again as often as you like —
-   your text stays, only `bytes`/`sha256`/paths get refreshed.
+Two equivalent places to write it:
 
-Example — add this to a book object in `catalog/books/en.json`:
+1. **In `source/overrides/`** (recommended, and what this repo does) — hand-
+   written JSON, one file per book, that wins over everything and survives even
+   deleting `catalog/` and rebuilding from scratch.
+2. **Directly in the generated shard** — open `catalog/shards/en.json`, write the
+   `description` (and `subjects`, `year`, `license`, `source`, ...), then re-run
+   the build as often as you like: your text stays, only `bytes`/`sha256`/paths
+   are refreshed.
 
-```json
-"description": "Капитан Ахав охотится на белого кита...",
-"subjects": ["Adventure", "Sea stories"],
-"license": "public-domain",
-"source": "https://www.gutenberg.org/ebooks/2701",
-"year": 1851
-```
-
-Precedence, per field: **override file > values already in the JSON > values
+Precedence, per field: **override file > values already in the shard > values
 read from the book file**. A handful of fields are *derived* and always
 recomputed, so do not bother editing them:
 
-| Always recomputed | Preserved from the JSON |
+| Always recomputed | Preserved (yours) |
 | --- | --- |
 | `id`, `language`, `format`, `cover`, `download`, `bytes`, `sha256` | `title`, `authors`, `description`, `subjects`, `publisher`, `year`, `originalTitle`, `translator`, `license`, `source`, `addedAt` |
 
-### Overrides (optional)
+### Overrides
 
-If you would rather keep your text out of the generated file — or you want it
-to survive deleting `catalog/` and rebuilding from scratch — put it in
-`source/overrides/<lang>/<slug>.json`:
+`source/overrides/<lang>/<slug>.json` mirrors `books/<lang>/<slug>.<ext>` — one
+small file per book. This repository already ships one for every book:
 
-```
-source/overrides/en/pg84-images-3.json
-```
 ```json
-{ "description": "Frankenstein, or the Modern Prometheus.", "license": "public-domain" }
+{
+  "description": "A young solicitor's visit to a Transylvanian castle drags him, and everyone he loves, into the hunt for the undead Count Dracula.",
+  "year": 1897,
+  "license": "public-domain",
+  "source": "https://www.gutenberg.org/ebooks/345"
+}
 ```
 
-Override values win over everything except the derived fields.
+Keeping the prose out of the generated files means the shards can be rebuilt
+from scratch at any time without losing anything.
+
 
 ## The JSON the app reads
 
@@ -146,8 +147,8 @@ user picked — never the whole catalog.
   "generatedAt": "2026-11-04T07:04:37Z",
   "languagesIndex": "catalog/languages.json",
   "shards": {
-    "en": "catalog/books/en.json",
-    "fr": "catalog/books/fr.json"
+    "en": "catalog/shards/en.json",
+    "fr": "catalog/shards/fr.json"
   }
 }
 ```
@@ -164,26 +165,28 @@ user picked — never the whole catalog.
 }
 ```
 
-**`catalog/books/en.json`** — one shard per language
+**`catalog/shards/en.json`** — one shard per language
 ```json
 {
   "schemaVersion": 1,
   "language": "en",
-  "generatedAt": "2026-11-04T07:04:37Z",
+  "generatedAt": "2026-11-04T07:36:05Z",
   "books": [
     {
-      "id": "en/pg84-images-3",
-      "title": "Frankenstein; or, The modern Prometheus",
-      "authors": ["Mary Wollstonecraft Shelley"],
+      "id": "en/dracula-bram-stoker",
+      "title": "Dracula",
+      "authors": ["Bram Stoker"],
       "language": "en",
-      "subjects": ["Science fiction", "Horror tales", "Gothic fiction"],
-      "year": 1993,
+      "description": "A young solicitor's visit to a Transylvanian castle drags him…",
+      "subjects": ["Horror tales", "Gothic fiction"],
+      "year": 1897,
       "format": "epub",
-      "cover": "covers/en/pg84-images-3.jpg",
-      "download": "en/pg84-images-3.epub",
-      "bytes": 440131,
-      "sha256": "0bfcc8cacdc72e132272844ed465c6198f1049a8d2b9e3f16806d02beee452e3",
-      "license": "unknown",
+      "cover": "covers/en/dracula-bram-stoker.jpg",
+      "download": "books/en/dracula-bram-stoker.epub",
+      "bytes": 602902,
+      "sha256": "be5b12d762ceaacab5bfd0c1e510c8d36a0498cdde43790d6575d198fa9cd94d",
+      "license": "public-domain",
+      "source": "https://www.gutenberg.org/ebooks/345",
       "addedAt": "2026-11-04"
     }
   ]
@@ -194,14 +197,14 @@ user picked — never the whole catalog.
 | --- | --- |
 | `id` | Stable unique key (`<language>/<slug>`) — reuse it as the library progress key so a book downloaded twice is recognised. |
 | `title`, `authors[]` | The listing. |
-| `language` | Same BCP-47 code as the folder and `languages.json`. |
-| `description` | Blurb on the card / detail screen. **Fill this in by hand.** |
+| `language` | Same BCP-47 code as the `books/<code>/` folder and `languages.json`. |
+| `description` | Blurb on the card. Defaults to `No description`; write yours in `source/overrides/`. |
 | `subjects[]` | Grouping / search. |
 | `publisher`, `year` | Sorting and "old/новинки" filters. |
 | `originalTitle`, `translator` | Optional. |
 | `format` | `epub`/`fb2`/`txt`/... so the app knows before downloading and can hide formats it cannot open. |
 | `cover` | Relative path to the preview (300px JPEG). |
-| `download` | Relative path to the book file. |
+| `download` | Relative path to the book file (`books/<lang>/<file>`). |
 | `bytes` | Download progress and "you are about to download 25 MB" warnings. |
 | `sha256` | Verify the file after download, before importing it. |
 | `license` | Legal hygiene — set it (`public-domain`, `cc0`, ...). |
@@ -224,14 +227,18 @@ Do **not** read the catalog through `api.github.com` — that is rate-limited
 ## Notes & limits
 
 * GitHub warns above **50 MB per file** and blocks above 100 MB. The
-  `*-images-3.epub` files from Gutenberg include every illustration and can be
-  large (e.g. `pg1342-images-3.epub` is ~25 MB) — prefer the no-images EPUB
-  when you do not need them. Big scans (PDF/DjVu) belong in GitHub Releases.
-* `catalog/` is generated — but only the *derived* fields are rewritten, so
-  committing your hand-written `description` is safe and expected.
-* `python3 scripts/build_catalog.py --check` is what CI runs: schema +
-  `sha256`/`bytes` + "is the catalog up to date". Add `--strict` to also fail
-  when an EPUB/FB2 has no extracted cover.
+  `*-images-3.epub` editions from Gutenberg include every illustration and can be
+  large (e.g. `books/en/pride-and-prejudice-jane-austen.epub` is ~25 MB) — prefer
+  the no-images EPUB when you do not need them. Big scans (PDF/DjVu) belong in
+  GitHub Releases.
+* `catalog/` is generated, but only the *derived* fields are rewritten, so both
+  `source/overrides/` and hand-edits inside a shard are safe.
+* `python3 scripts/update.py --check` (or `build_catalog.py --check`) is what CI
+  runs: schema + `sha256`/`bytes` + "is the catalog up to date". Add `--strict`
+  to also fail when an EPUB/FB2 has no extracted cover.
+* `year` comes from the EPUB's `dc:date`, which for Gutenberg is the *ebook*
+  release date — that is why every book here sets the real publication year in
+  its override.
 
 ## License
 
