@@ -1,9 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04T07:36:05Z",
+  "generatedAt": "2026-11-10T16:06:23Z",
   "languagesIndex": "catalog/languages.json",
   "shards": {
+    "de": "catalog/shards/de.json",
     "en": "catalog/shards/en.json",
-    "fr": "catalog/shards/fr.json"
+    "es": "catalog/shards/es.json",
+    "fr": "catalog/shards/fr.json",
+    "ru": "catalog/shards/ru.json"
   }
 }

@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "language": "de",
+  "generatedAt": "2026-11-10T16:06:23Z",
+  "books": [
+    {
+      "id": "de/also-sprach-zarathustra-ein-buch-fur-alle-und-keinen-friedrich-wilhelm-nietzsche",
+      "title": "Also sprach Zarathustra: Ein Buch für Alle und Keinen",
+      "authors": [
+        "Friedrich Wilhelm Nietzsche"
+      ],
+      "language": "de",
+      "description": "No description",
+      "subjects": [
+        "Superman (Philosophical concept)",
+        "Philosophy, German"
+      ],
+      "year": 2005,
+      "format": "epub",
+      "cover": "covers/de/also-sprach-zarathustra-ein-buch-fur-alle-und-keinen-friedrich-wilhelm-nietzsche.jpg",
+      "download": "books/de/also-sprach-zarathustra-ein-buch-fur-alle-und-keinen-friedrich-wilhelm-nietzsche.epub",
+      "bytes": 390859,
+      "sha256": "790faf06712dd92109052677091c52faa6b0342884752215bd04885b23409a61",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "de/buddenbrooks-verfall-einer-familie-thomas-mann",
+      "title": "Buddenbrooks: Verfall einer Familie",
+      "authors": [
+        "Thomas Mann"
+      ],
+      "language": "de",
+      "description": "No description",
+      "subjects": [
+        "Germany -- Fiction",
+        "Domestic fiction",
+        "Families -- Fiction"
+      ],
+      "year": 2011,
+      "format": "epub",
+      "cover": "covers/de/buddenbrooks-verfall-einer-familie-thomas-mann.jpg",
+      "download": "books/de/buddenbrooks-verfall-einer-familie-thomas-mann.epub",
+      "bytes": 840238,
+      "sha256": "76fcb545fbf044b992a557b957ecc52342976c8abeb5042b860294c460c8dcee",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "de/die-verwandlung-franz-kafka",
+      "title": "Die Verwandlung",
+      "authors": [
+        "Franz Kafka"
+      ],
+      "language": "de",
+      "description": "No description",
+      "subjects": [
+        "Psychological fiction",
+        "Metamorphosis -- Fiction"
+      ],
+      "year": 2007,
+      "format": "epub",
+      "cover": "covers/de/die-verwandlung-franz-kafka.jpg",
+      "download": "books/de/die-verwandlung-franz-kafka.epub",
+      "bytes": 99770,
+      "sha256": "9fc9a802421caf591d674ffafa6d17eaf08b2e3d54849c081c9276a5174ee60e",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "de/faust-der-tragodie-erster-teil-johann-wolfgang-von-goethe",
+      "title": "Faust: Der Tragödie erster Teil",
+      "authors": [
+        "Johann Wolfgang von Goethe"
+      ],
+      "language": "de",
+      "description": "No description",
+      "subjects": [
+        "German poetry",
+        "Legends -- Germany -- Drama",
+        "Faust, -approximately 1540 -- Drama",
+        "Magicians -- Drama"
+      ],
+      "year": 2000,
+      "format": "epub",
+      "cover": "covers/de/faust-der-tragodie-erster-teil-johann-wolfgang-von-goethe.jpg",
+      "download": "books/de/faust-der-tragodie-erster-teil-johann-wolfgang-von-goethe.epub",
+      "bytes": 192387,
+      "sha256": "c9f43aa402c72e24e7fb9c0090b89206cd29b649eb93b561cf3e5d8eace055b4",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    }
+  ]
+}

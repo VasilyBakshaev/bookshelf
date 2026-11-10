@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "language": "es",
+  "generatedAt": "2026-11-10T16:06:23Z",
+  "books": [
+    {
+      "id": "es/don-quijote-miguel-de-cervantes-saavedra",
+      "title": "Don Quijote",
+      "authors": [
+        "Miguel de Cervantes Saavedra"
+      ],
+      "language": "es",
+      "description": "No description",
+      "subjects": [
+        "Spain -- Social life and customs -- 16th century -- Fiction",
+        "Knights and knighthood -- Spain -- Fiction",
+        "Picaresque literature",
+        "Romances"
+      ],
+      "year": 1999,
+      "format": "epub",
+      "cover": "covers/es/don-quijote-miguel-de-cervantes-saavedra.jpg",
+      "download": "books/es/don-quijote-miguel-de-cervantes-saavedra.epub",
+      "bytes": 1106045,
+      "sha256": "9a40acbbc8e640fa0fdc51a057ab3905676d404c4ba44090184098d4d8244fc0",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "es/novelas-ejemplares-miguel-de-cervantes-saavedra",
+      "title": "Novelas ejemplares",
+      "authors": [
+        "Miguel de Cervantes Saavedra"
+      ],
+      "language": "es",
+      "description": "No description",
+      "subjects": [
+        "Spanish fiction -- Classical period, 1500-1700"
+      ],
+      "year": 2020,
+      "format": "epub",
+      "cover": "covers/es/novelas-ejemplares-miguel-de-cervantes-saavedra.jpg",
+      "download": "books/es/novelas-ejemplares-miguel-de-cervantes-saavedra.epub",
+      "bytes": 519198,
+      "sha256": "eef4dae884716b48b7b4f61a1e49805b586beb79df7af2ba863efe77c42f0a6c",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    },
+    {
+      "id": "es/sangre-y-arena-vicente-blasco-ibanez",
+      "title": "Sangre y arena",
+      "authors": [
+        "Vicente Blasco Ibáñez"
+      ],
+      "language": "es",
+      "description": "No description",
+      "subjects": [
+        "Bullfighters -- Fiction"
+      ],
+      "year": 2008,
+      "format": "epub",
+      "cover": "covers/es/sangre-y-arena-vicente-blasco-ibanez.jpg",
+      "download": "books/es/sangre-y-arena-vicente-blasco-ibanez.epub",
+      "bytes": 344005,
+      "sha256": "8bb986c650493b2276b1c07761568e081baf4409da5706be88d30a493a17df95",
+      "license": "unknown",
+      "addedAt": "2026-11-10"
+    }
+  ]
+}

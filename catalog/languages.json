@@ -1,7 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-04T07:04:37Z",
+  "generatedAt": "2026-11-10T16:06:23Z",
   "languages": [
+    {
+      "code": "de",
+      "name": "German",
+      "nativeName": "Deutsch",
+      "bookCount": 4
+    },
     {
       "code": "en",
       "name": "English",
@@ -9,10 +15,22 @@
       "bookCount": 5
     },
     {
+      "code": "es",
+      "name": "Spanish",
+      "nativeName": "Español",
+      "bookCount": 3
+    },
+    {
       "code": "fr",
       "name": "French",
       "nativeName": "Français",
       "bookCount": 6
+    },
+    {
+      "code": "ru",
+      "name": "Russian",
+      "nativeName": "Русский",
+      "bookCount": 4
     }
   ]
 }
