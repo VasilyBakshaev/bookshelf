@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "language": "en",
-  "generatedAt": "2026-11-04T07:36:05Z",
+  "generatedAt": "2026-11-10T16:52:32Z",
   "books": [
     {
       "id": "en/dracula-bram-stoker",
@@ -37,7 +37,7 @@
         "Mary Wollstonecraft Shelley"
       ],
       "language": "en",
-      "description": "Victor Frankenstein animates a creature from dead flesh, then abandons it; the lonely, brilliant monster turns on its maker.",
+      "description": "A brilliant young scientist discovers the secret of life and animates a creature out of dead flesh — then recoils in horror from what he has made. Left utterly alone, the creature must make its own way in a world that will not have him.",
       "subjects": [
         "Science fiction",
         "Horror tales",
@@ -114,7 +114,7 @@
         "Robert Louis Stevenson"
       ],
       "language": "en",
-      "description": "A respectable doctor's experiments split him into a kindly gentleman and a murderous brute, and London cannot hold them both.",
+      "description": "A respectable London doctor, a sinister will, and a violent brute named Mr Hyde: the lawyer Utterson begins to suspect that his old friend Dr Jekyll is hiding something monstrous about the man he has made his heir.",
       "subjects": [
         "Science fiction",
         "Horror tales",

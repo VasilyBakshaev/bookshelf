@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "language": "de",
-  "generatedAt": "2026-11-10T16:06:23Z",
+  "generatedAt": "2026-11-10T16:52:32Z",
   "books": [
     {
       "id": "de/also-sprach-zarathustra-ein-buch-fur-alle-und-keinen-friedrich-wilhelm-nietzsche",
@@ -10,7 +10,7 @@
         "Friedrich Wilhelm Nietzsche"
       ],
       "language": "de",
-      "description": "No description",
+      "description": "In hymnischer Prosa steigt der Weise Zarathustra von seinem Berg herab und verkündet den Menschen seine Lehre: vom Übermenschen, vom Tod Gottes und von der ewigen Wiederkunft – Nietzsches philosophisches Gedicht zwischen Predigt, Spott und Gesang.",
       "subjects": [
         "Superman (Philosophical concept)",
         "Philosophy, German"
@@ -31,7 +31,7 @@
         "Thomas Mann"
       ],
       "language": "de",
-      "description": "No description",
+      "description": "Über vier Generationen erzählt Thomas Mann vom Aufstieg und langsamen Verfall einer Lübecker Kaufmannsfamilie, in der hanseatischer Geschäftssinn und Bürgerpflicht allmählich der Kunst, der Kränklichkeit und dem Tod weichen.",
       "subjects": [
         "Germany -- Fiction",
         "Domestic fiction",
@@ -53,7 +53,7 @@
         "Franz Kafka"
       ],
       "language": "de",
-      "description": "No description",
+      "description": "Eines Morgens findet sich der Handlungsreisende Gregor Samsa in seinem Bett in ein ungeheures Ungeziefer verwandelt. Was folgt, ist die stille, erschütternde Geschichte einer Familie, die mit dem Fremden leben muss, das ihr Sohn geworden ist.",
       "subjects": [
         "Psychological fiction",
         "Metamorphosis -- Fiction"
@@ -74,7 +74,7 @@
         "Johann Wolfgang von Goethe"
       ],
       "language": "de",
-      "description": "No description",
+      "description": "Des Wissens überdrüssig, verschreibt der Gelehrte Heinrich Faust dem Teufel Mephistopheles seine Seele und wettet mit ihm um den einen Augenblick vollkommenen Glücks – Goethes Tragödie vom rastlosen Streben des Menschen.",
       "subjects": [
         "German poetry",
         "Legends -- Germany -- Drama",

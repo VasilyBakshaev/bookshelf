@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "language": "es",
-  "generatedAt": "2026-11-10T16:06:23Z",
+  "generatedAt": "2026-11-10T16:44:10Z",
   "books": [
     {
       "id": "es/don-quijote-miguel-de-cervantes-saavedra",
@@ -10,7 +10,7 @@
         "Miguel de Cervantes Saavedra"
       ],
       "language": "es",
-      "description": "No description",
+      "description": "Enloquecido por la lectura de libros de caballerías, el hidalgo Alonso Quijano se arma caballero andante como Don Quijote y sale, con su fiel escudero Sancho Panza, a enderezar entuertos por una España donde la fantasía choca sin remedio con la realidad.",
       "subjects": [
         "Spain -- Social life and customs -- 16th century -- Fiction",
         "Knights and knighthood -- Spain -- Fiction",
@@ -33,7 +33,7 @@
         "Miguel de Cervantes Saavedra"
       ],
       "language": "es",
-      "description": "No description",
+      "description": "Doce relatos que van del amor y el enredo al pícaro y lo truculento, escritos con la gracia inmortal de Cervantes: historias de celos, engaños, cautiverios y generosidad que, como promete el título, dejan siempre una lección de virtud.",
       "subjects": [
         "Spanish fiction -- Classical period, 1500-1700"
       ],
@@ -53,7 +53,7 @@
         "Vicente Blasco Ibáñez"
       ],
       "language": "es",
-      "description": "No description",
+      "description": "Juan Gallardo, hijo de un zapatero, llega a ser ídolo del toreo en la Sevilla de principios del siglo XX, atrapado entre el valor ante el toro, la ambición y el amor de dos mujeres: un retrato crudo y colorista del mundo de los toros.",
       "subjects": [
         "Bullfighters -- Fiction"
       ],
