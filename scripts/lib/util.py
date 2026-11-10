@@ -34,10 +34,13 @@ def today() -> str:
 
 def slugify(value: str) -> str:
     """Turn any string into an ASCII, url-safe, hyphen-separated slug."""
+    # Lowercase *before* transliterating: the table only knows lowercase
+    # Cyrillic, and the ASCII fallback below would silently drop an uppercase
+    # «Б», eating the first letter of every word.
+    value = value.lower()
     value = value.translate(_TRANSLIT_TABLE)
     value = unicodedata.normalize("NFKD", value)
     value = value.encode("ascii", "ignore").decode("ascii")
-    value = value.lower()
     value = re.sub(r"[^a-z0-9]+", "-", value).strip("-")
     return value or "book"
 

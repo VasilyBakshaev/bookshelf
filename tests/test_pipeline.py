@@ -247,6 +247,20 @@ class PipelineTest(unittest.TestCase):
         self.build()
         self.assertEqual(self.book("en", "en/no-desc")["description"], "A real blurb.")
 
+    def test_17_rename_transliterates_cyrillic_names(self) -> None:
+        # Uppercase Cyrillic has to be lowercased *before* the ASCII fallback,
+        # otherwise the first letter of every word is dropped.
+        make_fb2(self.tmp / "books/ru/ugly-055.fb2",
+                 title="Братья Карамазовы", first="Фёдор", last="Достоевский",
+                 language="ru")
+        self.assertEqual(build_catalog.main(["--root", str(self.tmp), "--rename"]), 0)
+
+        renamed = self.tmp / "books/ru/bratya-karamazovy-fedor-dostoevskiy.fb2"
+        self.assertTrue(renamed.is_file())
+        self.assertFalse((self.tmp / "books/ru/ugly-055.fb2").exists())
+        self.assertEqual(self.book("ru", "ru/bratya-karamazovy-fedor-dostoevskiy")["title"],
+                         "Братья Карамазовы")
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
